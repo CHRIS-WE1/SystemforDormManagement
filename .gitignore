@@ -1,0 +1,3 @@
+# Project exclude paths
+/out/
+/web/WEB-INF/classes/
