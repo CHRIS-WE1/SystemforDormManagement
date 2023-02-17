@@ -79,7 +79,7 @@
                         <a class="nav-link text-center text-light" href="./RecordForTea.jsp">考勤管理</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-center text-light" href="./MissionForTea">任务发布</a>
+                        <a class="nav-link text-center text-light" href="./MissionForTea.jsp">任务发布</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-center text-light" href="./BuildMessageForTea.jsp">宿舍楼信息</a>

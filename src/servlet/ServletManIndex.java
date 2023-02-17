@@ -390,7 +390,7 @@ public class ServletManIndex extends HttpServlet {
         StudentDao dao= new StudentDao();
         String Sno = request.getParameter("sno");
         Student student = new Student();
-        student.setNo(Sno);
+        student.setUsername(Sno);
         Student UpdateStu = dao.QueryMes(student);
         session.setAttribute("UpdateStu",UpdateStu);
         response.sendRedirect("/managers/StuMesUpdateForMan.jsp");

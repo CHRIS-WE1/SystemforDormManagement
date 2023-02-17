@@ -51,8 +51,8 @@ public class TeacherDao {
 
     public Teacher QueryMes(Teacher teacher) throws SQLException {
         QueryRunner runner=new QueryRunner(C3p0Utils.getDataSource());
-        String sql = "select * from teacher where teacher.username=?";
-        Teacher existTeacher=(Teacher) runner.query(sql, new BeanHandler<>(Teacher.class),teacher.getUsername());
+        String sql = "select * from teacher where teacher.username=? or teacher.no=?";
+        Teacher existTeacher=(Teacher) runner.query(sql, new BeanHandler<>(Teacher.class),teacher.getUsername(),teacher.getNo());
         String sql2 ="select teacher_mes.buildname as buildname from teacher_mes where teacher_mes.no=?";
         Teacher teacher1=(Teacher)runner.query(sql2,new BeanHandler<Teacher>(Teacher.class),existTeacher.getNo());
         existTeacher.setBuildname(teacher1.getBuildname());
