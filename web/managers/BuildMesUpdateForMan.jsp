@@ -38,48 +38,55 @@
 </script>
 <div class="container-fluid">
   <nav class="navbar navbar-expand-lg bg-primary rounded-bottom">
-    <div class="container-fluid align-text-bottom">
-      <h3 class="navbar-brand display-6 text-light align-text-bottom">学生宿舍管理系统</h3>
-      <form  class="d-flex">
-        <button class="btn btn-outline-light" type="button" onclick="logout()">登出</button>
-      </form>
+    <div class="container-fluid align-text-bottom d-flex flex-lg-row flex-sm-column">
+      <div><h3 class="navbar-brand display-6 text-light align-text-bottom">学生宿舍管理系统</h3></div>
+      <div class="navbar navbar-expand-xl rounded navbar-dar">
+        <button class="navbar-toggler border-white text-center" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
+          <p class="text-light">操作列表</p>
+        </button>
+        <div class="collapse navbar-collapse" id="collapsibleNavbar" >
+          <ul class="navbar-nav container-fluid rounded">
+            <li class="nav-item border-white">
+              <a class="nav-link text-center text-light" href="../ManagerIndex.html">首页</a>
+            </li>
+
+            <li class="nav-item dropdowm">
+              <a class="nav-link dropdown-toggle text-white text-center" href="#" id="navbardrop" data-bs-toggle="dropdown">
+                信息管理
+              </a>
+              <ul class="dropdown-menu">
+                <li class="nav-link dropdown-item text-center "><a  href="TeaMessageforMan.jsp">教师信息管理</a></li>
+                <li class="nav-link dropdown-item text-center "><a  href="StuMessageforMan.jsp">学生信息管理</a></li>
+                <li class="nav-link dropdown-item text-center "><a  href="BuiMesforMan.jsp">宿舍楼信息管理</a></li>
+                <li class="nav-link dropdown-item text-center "><a  href="RoomMesforMan.jsp">宿舍信息管理</a></li>
+              </ul>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-center text-light" href="AllRecordForMan.jsp">考勤管理</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-center text-light" href="MissionListForMan.jsp">任务发布</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-center text-light" href="ManMessage.jsp">管理员信息</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-center text-light" href="ManPasswordUpdate.jsp">密码修改</a>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div>
+        <form class="d-flex">
+          <button class="btn btn-outline-light" type="button" onclick="logout()">登出</button>
+        </form>
+      </div>
     </div>
   </nav>
-  <div class="container-fluid col-12 row">
-    <div class="container-fluid col-2 border-top " style="margin-top: 50px">
-      <nav class="navbar navbar-inverse bg-primary text-light rounded">
-        <ul class="navbar-nav container-fluid rounded">
-          <li class="nav-item border-white">
-            <a class="nav-link text-center text-light" href="../ManagerIndex.html">首页</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-center text-light" href="TeaMessageforMan.jsp">教师信息管理</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-center text-light" href="StuMessageforMan.jsp">学生信息管理</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-center text-light" href="BuiMesforMan.jsp">宿舍楼信息管理</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-center text-light" href="RoomMesforMan.jsp">宿舍信息管理</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-center text-light" href="AllRecordForMan.jsp">考勤管理</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-center text-light" href="MissionListForMan.jsp">任务发布</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-center text-light" href="ManMessage.jsp">管理员信息</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-center text-light" href="ManPasswordUpdate.jsp">密码修改</a>
-          </li>
-        </ul>
-      </nav>
-    </div>
-    <div class="col-10"style="padding: 30px 40px;border: #0b5ed7 solid ;border-radius: 10px">
+  <div class="container-fluid col row">
+    <div class="col"style="padding: 30px 40px;border: #0b5ed7 solid ;border-radius: 10px">
       <form action="../ServletManIndex?action=buildupdate" method="post" class="was-validated">
         <%
           Build build =(Build) session.getAttribute("UpdateBui");

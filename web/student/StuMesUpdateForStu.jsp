@@ -36,36 +36,43 @@
 </script>
 <div class="container-fluid">
     <nav class="navbar navbar-expand-lg bg-primary rounded-bottom">
-        <div class="container-fluid align-text-bottom">
-            <h3 class="navbar-brand display-6 text-light align-text-bottom">学生宿舍管理系统</h3>
-            <form  class="d-flex">
-                <button class="btn btn-outline-light" type="button" onclick="logout()">登出</button>
-            </form>
+        <div class="container-fluid align-text-bottom d-flex flex-lg-row flex-sm-column">
+            <div><h3 class="navbar-brand display-6 text-light align-text-bottom">学生宿舍管理系统</h3></div>
+            <div class="navbar navbar-expand-xl rounded navbar-dar">
+                <button class="navbar-toggler border-white text-center" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
+                    <p class="text-light">操作列表</p>
+                </button>
+                <div class="collapse navbar-collapse" id="collapsibleNavbar" >
+                    <ul class="navbar-nav container-fluid rounded">
+                        <li class="nav-item border-white">
+                            <a class="nav-link text-center text-light" href="../StudentIndex.html">首页</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-center text-light" href="./RecordListForStu.jsp">考勤记录</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-center text-light" href="./MissionList.jsp">任务</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-center text-light" href="./StuMesForStu.jsp">学生信息</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-center text-light" href="./StuPasswordUpdate.jsp">密码修改</a>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <div>
+                <form class="d-flex">
+                    <button class="btn btn-outline-light" type="button" onclick="logout()">登出</button>
+                </form>
+            </div>
         </div>
     </nav>
-    <div class="container-fluid col-12 row" style="margin-top: 50px;">
-        <div class="container-fluid col-2 border-top ">
-            <nav class="navbar navbar-inverse bg-primary text-light rounded">
-                <ul class="navbar-nav container-fluid rounded">
-                    <li class="nav-item border-white">
-                        <a class="nav-link text-center text-light" href="../StudentIndex.html">首页</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-center text-light" href="./RecordListForStu.jsp">考勤记录</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-center text-light" href="./MissionList.jsp">任务</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-center text-light" href="./StuMesForStu.jsp">学生信息</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-center text-light" href="./StuPasswordUpdate.jsp">密码修改</a>
-                    </li>
-                </ul>
-            </nav>
-        </div>
-        <div class="col-10"style="padding: 30px 40px;border: #0b5ed7 solid ;border-radius: 10px">
+    <div class="container-fluid col row" style="margin-top: 50px;">
+        <div class="col"style="padding: 30px 40px;border: #0b5ed7 solid ;border-radius: 10px">
             <form action="../ServletStuIndex?action=studentupdate" method="post" class="was-validated">
                 <%
                     Student student =(Student) session.getAttribute("user");
