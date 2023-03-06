@@ -116,6 +116,34 @@
                     </div>
                 </form>
             </div>
+            <%
+                int pageSize = 4;
+                int pageNow = 1;
+                int rowCount = 0;
+                int pageCount = 0;
+                List<Mission> list = (List<Mission>)  session.getAttribute("MissionListForStu");
+                String r_pageNow = request.getParameter("pageNow");
+                if (r_pageNow!=null){
+                    pageNow = Integer.parseInt(r_pageNow);
+                }
+                int num = list.size();
+                if (num!=0) {
+                    rowCount = num;
+                }
+
+                if (rowCount % pageSize == 0) {
+                    pageCount = rowCount / pageSize;
+                } else {
+                    pageCount = rowCount / pageSize + 1;
+                }
+                int remain=num-(pageNow-1)*pageSize;
+                List<Mission> showlist;
+                if(remain<pageSize){
+                    showlist =(List<Mission>) list.subList((pageNow-1)*pageSize+0,(pageNow-1)*pageSize+remain);
+                }else {
+                    showlist =(List<Mission>) list.subList((pageNow-1)*pageSize+0,(pageNow-1)*pageSize+pageSize);
+                }
+            %>
             <table class="table table-bordered table-hover table-striped">
                 <thead class="table-primary">
                 <tr>
@@ -129,11 +157,9 @@
                 </tr>
                 </thead>
                 <%
-                    ArrayList<Mission> missions = (ArrayList<Mission>) session.getAttribute("MissionListForStu");
                     ArrayList<Mission_record> mrs = (ArrayList<Mission_record>) session.getAttribute("MisRecForStu");
                     Student user =(Student) session.getAttribute("user");
-                    if(missions!=null){
-                        for (Mission mission :missions){%>
+                        for (Mission mission :showlist){%>
                 <tr>
                     <td><%=mission.getName()%></td>
                     <td><%=mission.getTitle()%></td>
@@ -164,12 +190,27 @@
                             <button type="button" class="btn btn-danger text-light" id="alter" onclick="finish(<%=mission.getMissionid()%>,'leave')">请假申请</button>
                                     <%}
                                 }
-                            }
                             }%>
                         </div>
                     </td>
                 </tr>
             </table>
+            <%
+                out.print("<ul class='pagination justify-content-end'>");
+                if(pageNow!=1){
+                    out.print("<li class='page-item'><a class='page-link' href='MissionList.jsp?pageNow=1'>首页</a></li>");
+                    out.print("<li class='page-item'><a class='page-link' href='MissionList.jsp?pageNow="+(pageNow-1)+"'>上一页</a></li>");
+                }
+                //显示分页
+                for(int i=1; i<=pageCount;i++){
+                    out.print("<li class='page-item'><a class='page-link' href='MissionList.jsp?pageNow="+i+"'>"+i+"</a></li>");
+                }
+                if(pageNow<pageCount){
+                    out.print("<li class='page-item'><a class='page-link' href='MissionList.jsp?pageNow="+(pageNow+1)+"'>下一页</a></li>");
+                    out.print("<li class='page-item'><a class='page-link' href='MissionList.jsp?pageNow="+pageCount+"'>尾页</a></li>");
+                }
+                out.print("</ul>");
+            %>
         </div>
     </div>
 </div>

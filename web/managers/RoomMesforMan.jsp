@@ -131,6 +131,35 @@
           </div>
         </form>
       </div>
+      <%
+        int pageSize = 4;
+        int pageNow = 1;
+        int rowCount = 0;
+        int pageCount = 0;
+        List<Room> list = (List<Room>)  session.getAttribute("ARoomList");
+        String r_pageNow = request.getParameter("pageNow");
+        if (r_pageNow!=null){
+          pageNow = Integer.parseInt(r_pageNow);
+        }
+        int num = list.size();
+        if (num!=0) {
+          rowCount = num;
+        }
+
+        if (rowCount % pageSize == 0) {
+          pageCount = rowCount / pageSize;
+        } else {
+          pageCount = rowCount / pageSize + 1;
+        }
+
+        int remain=num-(pageNow-1)*pageSize;
+        List<Room> showlist;
+        if(remain<pageSize){
+          showlist =(List<Room>) list.subList((pageNow-1)*pageSize+0,(pageNow-1)*pageSize+remain);
+        }else {
+          showlist =(List<Room>) list.subList((pageNow-1)*pageSize+0,(pageNow-1)*pageSize+pageSize);
+        }
+        %>
       <table class="table table-bordered table-hover table-striped">
         <thead class="table-primary">
         <tr>
@@ -140,29 +169,56 @@
           <th>操作</th>
         </tr>
         </thead>
-        <%
-          ArrayList<Room> rooms = (ArrayList<Room>)  session.getAttribute("ARoomList");
-          if(rooms!=null){
-            for (Room room :rooms){
-        if (room.getRoomid()==0)
-          continue;%>
+
+        <%for (Room room :showlist){%>
         <tr>
           <td><%=room.getRoomid()%></td>
           <td><%=room.getBuildname()%></td>
           <td><%=room.getRoomname()%></td>
           <td>
-            <div class="btn-group-sm">
-              <button type="submit" class="btn btn-danger" id="delete" onclick="del(<%=room.getRoomid()%>)">删除</button>
-              <button type="submit" class="btn btn-info text-light" id="alter" onclick="alter(<%=room.getRoomid()%>)">修改</button>
-            </div>
-          </td>
+          <div class="btn-group-sm">
+            <button type="submit" class="btn btn-danger" id="delete" onclick="del(<%=room.getRoomid()%>)">删除</button>
+            <button type="submit" class="btn btn-info text-light" id="alter" onclick="alter(<%=room.getRoomid()%>)">修改</button>
+          </div>
+        </td>
         </tr>
-        <% }
+        <%
         }
         %>
+<%--        if (room.getRoomid()==0)--%>
+<%--          continue;%>--%>
+<%--        <tr>--%>
+<%--          <td><%=room.getRoomid()%></td>--%>
+<%--          <td><%=room.getBuildname()%></td>--%>
+<%--          <td><%=room.getRoomname()%></td>--%>
+<%--          <td>--%>
+<%--            <div class="btn-group-sm">--%>
+<%--              <button type="submit" class="btn btn-danger" id="delete" onclick="del(<%=room.getRoomid()%>)">删除</button>--%>
+<%--              <button type="submit" class="btn btn-info text-light" id="alter" onclick="alter(<%=room.getRoomid()%>)">修改</button>--%>
+<%--            </div>--%>
+<%--          </td>--%>
+<%--        </tr>--%>
+<%--        <% }--%>
+<%--        }--%>
+<%--        %>--%>
 
       </table>
-
+      <%
+        out.print("<ul class='pagination justify-content-end'>");
+        if(pageNow!=1){
+          out.print("<li class='page-item'><a class='page-link' href='RoomMesforMan.jsp?pageNow=1'>首页</a></li>");
+          out.print("<li class='page-item'><a class='page-link' href='RoomMesforMan.jsp?pageNow="+(pageNow-1)+"'>上一页</a></li>");
+        }
+        //显示分页
+        for(int i=1; i<=pageCount;i++){
+          out.print("<li class='page-item'><a class='page-link' href='RoomMesforMan.jsp?pageNow="+i+"'>"+i+"</a></li>");
+        }
+        if(pageNow<pageCount){
+          out.print("<li class='page-item'><a class='page-link' href='RoomMesforMan.jsp?pageNow="+(pageNow+1)+"'>下一页</a></li>");
+          out.print("<li class='page-item'><a class='page-link' href='RoomMesforMan.jsp?pageNow="+pageCount+"'>尾页</a></li>");
+        }
+        out.print("</ul>");
+      %>
     </div>
   </div>
 </div>

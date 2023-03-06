@@ -7,6 +7,16 @@ public class Teacher extends User {
     String username;
     String password;
 
+    int num;
+
+    public int getNum() {
+        return num;
+    }
+
+    public void setNum(int num) {
+        this.num = num;
+    }
+
     public String getBuildname() {
         return buildname;
     }

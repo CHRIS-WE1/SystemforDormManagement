@@ -18,6 +18,7 @@
         <entry key="file://$PROJECT_DIR$/web/managers/StuMesUpdateForMan.jsp" value="file://$PROJECT_DIR$/web/managers" />
         <entry key="file://$PROJECT_DIR$/web/managers/StudentInsert.jsp" value="file://$PROJECT_DIR$/web/managers" />
         <entry key="file://$PROJECT_DIR$/web/managers/TeaMessageforMan.jsp" value="file://$PROJECT_DIR$/web/managers" />
+        <entry key="file://$PROJECT_DIR$/web/managers/TeaMessageforMan2.jsp" value="file://$PROJECT_DIR$/web/managers" />
         <entry key="file://$PROJECT_DIR$/web/student/MissionList.jsp" value="file://$PROJECT_DIR$/web/student" />
         <entry key="file://$PROJECT_DIR$/web/teacher/MissionForTea.jsp" value="file://$PROJECT_DIR$/web/teacher" />
       </map>

@@ -44,7 +44,7 @@
         window.location="./StudentInsertForTea.jsp";
     }
     function back(){
-        window.location="./StuMesForTea.jsp";
+        window.location="../ServletTeaIndex?action=studentinsertpre";
     }
 </script>
 <div class="container-fluid">

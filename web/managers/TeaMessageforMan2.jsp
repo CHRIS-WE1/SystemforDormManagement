@@ -11,6 +11,10 @@
 <%@page import="users.*" %>
 <%@page import="java.lang.*" %>
 <%@ page import="java.util.List" %>
+<%@ page import="org.apache.commons.dbutils.QueryRunner" %>
+<%@ page import="dao.C3p0Utils" %>
+<%@ page import="org.apache.commons.dbutils.handlers.BeanListHandler" %>
+<%@ page import="org.apache.commons.dbutils.handlers.BeanHandler" %>
 
 <!DOCTYPE html>
 
@@ -133,34 +137,10 @@
         </form>
       </div>
       <%
-        int pageSize = 4;
+        int pageSize = 2;
         int pageNow = 1;
         int rowCount = 0;
         int pageCount = 0;
-
-//        String r_pageNow = request.getParameter("pageNow");
-//        if (r_pageNow!=null){
-//          pageNow = Integer.parseInt(r_pageNow);
-//        }
-//
-//        Class.forName("com.mysql.cj.jdbc.Driver");
-//        Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/project?useUnicode=true&amp","root","123456");
-//        Statement st = conn.createStatement();
-//        ResultSet rs = st.executeQuery("select count(*) from teacher;");
-//        if (rs.next()) {
-//          rowCount = rs.getInt(1);
-//        }
-//
-//        if (rowCount % pageSize == 0) {
-//          pageCount = rowCount / pageSize;
-//        } else {
-//          pageCount = rowCount / pageSize + 1;
-//        }
-//
-//        int limitL = (pageNow-1)*pageSize;
-//
-//        String sql = "select * from teacher limit "+limitL+","+pageSize+"";
-//        rs = st.executeQuery(sql);
         List<Teacher> list = (List<Teacher>)  session.getAttribute("ATeaList");
         String r_pageNow = request.getParameter("pageNow");
         if (r_pageNow!=null){
@@ -190,6 +170,7 @@
         </tr>
         </thead>
 
+
         <%for(Teacher tea:showlist){%>
         <tr>
           <td><%=tea.getNo()%></td>
@@ -198,26 +179,12 @@
           <td><%=tea.getBuildname()%></td>
           <td><%=tea.getTel()%></td>
           <td><div class="btn-group-sm">
-            <button type="submit" class="btn btn-danger" onclick="del(<%=tea.getNo()%>)">删除</button>
-            <button type="submit" class="btn btn-info text-light" onclick="alter(<%=tea.getNo()%>)">修改</button>
+                          <button type="submit" class="btn btn-danger" onclick="del(<%=tea.getNo()%>)">删除</button>
+                         <button type="submit" class="btn btn-info text-light" onclick="alter(<%=tea.getNo()%>)">修改</button>
           </div>
           </td>
         </tr>
         <%}%>
-<%--        <%while(rs.next()){%>--%>
-<%--        <tr>--%>
-<%--          <td><%=rs.getString("no") %></td>--%>
-<%--          <td><%=rs.getString("name") %></td>--%>
-<%--          <td><%=rs.getString("sex") %></td>--%>
-<%--          <td><%=rs.getString("buildid") %></td>--%>
-<%--          <td><%=rs.getString("tel") %></td>--%>
-<%--          <td><div class="btn-group-sm">--%>
-<%--                          <button type="submit" class="btn btn-danger" onclick="del(<%=rs.getString("no")%>)">删除</button>--%>
-<%--                         <button type="submit" class="btn btn-info text-light" onclick="alter(<%=rs.getString("no")%>)">修改</button>--%>
-<%--          </div>--%>
-<%--          </td>--%>
-<%--        </tr>--%>
-<%--        <%} %>--%>
 
 
 
@@ -247,16 +214,16 @@
       <%
         out.print("<ul class='pagination justify-content-end'>");
         if(pageNow!=1){
-          out.print("<li class='page-item'><a class='page-link' href='TeaMessageforMan.jsp?pageNow=1'>首页</a></li>");
-          out.print("<li class='page-item'><a class='page-link' href='TeaMessageforMan.jsp?pageNow="+(pageNow-1)+"'>上一页</a></li>");
+          out.print("<li class='page-item'><a class='page-link' href='TeaMessageforMan2.jsp?pageNow=1'>首页</a></li>");
+          out.print("<li class='page-item'><a class='page-link' href='TeaMessageforMan2.jsp?pageNow="+(pageNow-1)+"'>上一页</a></li>");
         }
         //显示分页
         for(int i=1; i<=pageCount;i++){
-          out.print("<li class='page-item'><a class='page-link' href='TeaMessageforMan.jsp?pageNow="+i+"'>"+i+"</a></li>");
+          out.print("<li class='page-item'><a class='page-link' href='TeaMessageforMan2.jsp?pageNow="+i+"'>"+i+"</a></li>");
         }
         if(pageNow<pageCount){
-          out.print("<li class='page-item'><a class='page-link' href='TeaMessageforMan.jsp?pageNow="+(pageNow+1)+"'>下一页</a></li>");
-          out.print("<li class='page-item'><a class='page-link' href='TeaMessageforMan.jsp?pageNow="+pageCount+"'>尾页</a></li>");
+          out.print("<li class='page-item'><a class='page-link' href='TeaMessageforMan2.jsp?pageNow="+(pageNow+1)+"'>下一页</a></li>");
+          out.print("<li class='page-item'><a class='page-link' href='TeaMessageforMan2.jsp?pageNow="+pageCount+"'>尾页</a></li>");
         }
         out.print("</ul>");
       %>

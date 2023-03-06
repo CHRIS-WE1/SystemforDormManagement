@@ -132,6 +132,34 @@
                     </div>
                 </form>
             </div>
+            <%
+                int pageSize = 4;
+                int pageNow = 1;
+                int rowCount = 0;
+                int pageCount = 0;
+                List<Student> list = (List<Student>)  session.getAttribute("AStuList");
+                String r_pageNow = request.getParameter("pageNow");
+                if (r_pageNow!=null){
+                    pageNow = Integer.parseInt(r_pageNow);
+                }
+                int num = list.size();
+                if (num!=0) {
+                    rowCount = num;
+                }
+
+                if (rowCount % pageSize == 0) {
+                    pageCount = rowCount / pageSize;
+                } else {
+                    pageCount = rowCount / pageSize + 1;
+                }
+                int remain=num-(pageNow-1)*pageSize;
+                List<Student> showlist;
+                if(remain<pageSize){
+                    showlist =(List<Student>) list.subList((pageNow-1)*pageSize+0,(pageNow-1)*pageSize+remain);
+                }else {
+                    showlist =(List<Student>) list.subList((pageNow-1)*pageSize+0,(pageNow-1)*pageSize+pageSize);
+                }
+            %>
             <table class="table table-bordered table-hover table-striped">
                 <thead class="table-primary">
                     <tr>
@@ -144,30 +172,40 @@
                         <th>操作</th>
                     </tr>
                 </thead>
-                <%
-                    ArrayList<Student> students = (ArrayList<Student>)  session.getAttribute("AStuList");
-                    if(students!=null){
-                        for (Student student :students){%>
-                         <tr>
-                             <td><%=student.getNo()%></td>
-                             <td><%=student.getName()%></td>
-                             <td><%=student.getSex()%></td>
-                             <td><%=student.getBuildname()%></td>
-                             <td><%=student.getRoomname()%></td>
-                             <td><%=student.getTel()%></td>
-                             <td>
-                                 <div class="btn-group-sm">
-                                     <button type="submit" class="btn btn-danger" id="delete" onclick="del(<%=student.getNo()%>)">删除</button>
-                                     <button type="submit" class="btn btn-info text-light" id="alter" onclick="alter(<%=student.getNo()%>)">修改</button>
-                                 </div>
-                             </td>
-                         </tr>
-                       <% }
-                    }
-                %>
+
+                <%for(Student stu:showlist){%>
+                <tr>
+                    <td><%=stu.getNo()%></td>
+                    <td><%=stu.getName()%></td>
+                    <td><%=stu.getSex()%></td>
+                    <td><%=stu.getBuildname()%></td>
+                    <td><%=stu.getRoomname()%></td>
+                    <td><%=stu.getTel()%></td>
+                    <td><div class="btn-group-sm">
+                        <button type="submit" class="btn btn-danger" onclick="del(<%=stu.getNo()%>)">删除</button>
+                        <button type="submit" class="btn btn-info text-light" onclick="alter(<%=stu.getNo()%>)">修改</button>
+                    </div>
+                    </td>
+                </tr>
+                <%}%>
 
             </table>
-
+            <%
+                out.print("<ul class='pagination justify-content-end'>");
+                if(pageNow!=1){
+                    out.print("<li class='page-item'><a class='page-link' href='StuMessageforMan.jsp?pageNow=1'>首页</a></li>");
+                    out.print("<li class='page-item'><a class='page-link' href='StuMessageforMan.jsp?pageNow="+(pageNow-1)+"'>上一页</a></li>");
+                }
+                //显示分页
+                for(int i=1; i<=pageCount;i++){
+                    out.print("<li class='page-item'><a class='page-link' href='StuMessageforMan.jsp?pageNow="+i+"'>"+i+"</a></li>");
+                }
+                if(pageNow<pageCount){
+                    out.print("<li class='page-item'><a class='page-link' href='StuMessageforMan.jsp?pageNow="+(pageNow+1)+"'>下一页</a></li>");
+                    out.print("<li class='page-item'><a class='page-link' href='StuMessageforMan.jsp?pageNow="+pageCount+"'>尾页</a></li>");
+                }
+                out.print("</ul>");
+            %>
         </div>
     </div>
 </div>

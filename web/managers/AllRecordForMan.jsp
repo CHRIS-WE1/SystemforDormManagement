@@ -143,6 +143,34 @@
                     </div>
                 </form>
             </div>
+            <%
+                int pageSize = 4;
+                int pageNow = 1;
+                int rowCount = 0;
+                int pageCount = 0;
+                List<Record> list = (List<Record>)  session.getAttribute("ARecList");
+                String r_pageNow = request.getParameter("pageNow");
+                if (r_pageNow!=null){
+                    pageNow = Integer.parseInt(r_pageNow);
+                }
+                int num = list.size();
+                if (num!=0) {
+                    rowCount = num;
+                }
+
+                if (rowCount % pageSize == 0) {
+                    pageCount = rowCount / pageSize;
+                } else {
+                    pageCount = rowCount / pageSize + 1;
+                }
+                int remain=num-(pageNow-1)*pageSize;
+                List<Record> showlist;
+                if(remain<pageSize){
+                    showlist =(List<Record>) list.subList((pageNow-1)*pageSize+0,(pageNow-1)*pageSize+remain);
+                }else {
+                    showlist =(List<Record>) list.subList((pageNow-1)*pageSize+0,(pageNow-1)*pageSize+pageSize);
+                }
+            %>
             <table class="table table-bordered table-hover table-striped">
                 <thead class="table-primary">
                 <tr>
@@ -157,9 +185,7 @@
                 </tr>
                 </thead>
                 <%
-                    ArrayList<Record> records = (ArrayList<Record>)  session.getAttribute("ARecList");
-                    if(records!=null){
-                        for (Record record :records){
+                        for (Record record :showlist){
                 %>
                 <tr>
                     <td><%=record.getRecordid()%></td>
@@ -173,12 +199,29 @@
                         <button type="submit" class="btn btn-danger" id="delete" onclick="del(<%=record.getRecordid()%>)">删除</button>
                     </td>
                 </tr>
-                <% }
+                <%
                 }
                 %>
 
             </table>
-
+            <%
+                out.print("<ul class='pagination justify-content-end'>");
+                if(pageNow!=1){
+                    out.print("<li class='page-item'><a class='page-link' href='AllRecordForMan.jsp?pageNow=1'>首页</a></li>");
+                    out.print("<li class='page-item'><a class='page-link' href='AllRecordForMan.jsp?pageNow="+(pageNow-1)+"'>上一页</a></li>");
+                }
+                //显示分页
+                if (pageCount != 1) {
+                    for (int i = 1; i <= pageCount; i++) {
+                        out.print("<li class='page-item'><a class='page-link' href='AllRecordForMan.jsp?pageNow=" + i + "'>" + i + "</a></li>");
+                    }
+                }
+                if(pageNow<pageCount){
+                    out.print("<li class='page-item'><a class='page-link' href='AllRecordForMan.jsp?pageNow="+(pageNow+1)+"'>下一页</a></li>");
+                    out.print("<li class='page-item'><a class='page-link' href='AllRecordForMan.jsp?pageNow="+pageCount+"'>尾页</a></li>");
+                }
+                out.print("</ul>");
+            %>
         </div>
     </div>
 </div>
